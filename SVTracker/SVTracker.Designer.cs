@@ -36,6 +36,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.forceFetchEnJsonButton = new System.Windows.Forms.Button();
+            this.deckCodeLabel = new System.Windows.Forms.Label();
+            this.formatLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,7 +74,7 @@
             // infoBox
             // 
             this.infoBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.infoBox.Location = new System.Drawing.Point(12, 472);
+            this.infoBox.Location = new System.Drawing.Point(12, 330);
             this.infoBox.Multiline = true;
             this.infoBox.Name = "infoBox";
             this.infoBox.ReadOnly = true;
@@ -101,11 +103,11 @@
             // 
             // listBox1
             // 
-            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(482, 10);
+            this.listBox1.Location = new System.Drawing.Point(482, 37);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(270, 589);
+            this.listBox1.Size = new System.Drawing.Size(270, 420);
             this.listBox1.TabIndex = 6;
             // 
             // forceFetchEnJsonButton
@@ -118,12 +120,34 @@
             this.forceFetchEnJsonButton.UseVisualStyleBackColor = true;
             this.forceFetchEnJsonButton.Click += new System.EventHandler(this.forceFetchEnJsonButton_Click);
             // 
+            // deckCodeLabel
+            // 
+            this.deckCodeLabel.AutoSize = true;
+            this.deckCodeLabel.Location = new System.Drawing.Point(479, 18);
+            this.deckCodeLabel.Name = "deckCodeLabel";
+            this.deckCodeLabel.Size = new System.Drawing.Size(64, 13);
+            this.deckCodeLabel.TabIndex = 8;
+            this.deckCodeLabel.Text = "Deck Code:";
+            this.deckCodeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // formatLabel
+            // 
+            this.formatLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.formatLabel.Location = new System.Drawing.Point(672, 18);
+            this.formatLabel.Name = "formatLabel";
+            this.formatLabel.Size = new System.Drawing.Size(80, 13);
+            this.formatLabel.TabIndex = 9;
+            this.formatLabel.Text = "-";
+            this.formatLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // SVTracker
             // 
             this.AcceptButton = this.getDeckButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(764, 611);
+            this.ClientSize = new System.Drawing.Size(764, 469);
+            this.Controls.Add(this.formatLabel);
+            this.Controls.Add(this.deckCodeLabel);
             this.Controls.Add(this.forceFetchEnJsonButton);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.button1);
@@ -152,6 +176,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button forceFetchEnJsonButton;
+        private System.Windows.Forms.Label deckCodeLabel;
+        private System.Windows.Forms.Label formatLabel;
     }
 }
 

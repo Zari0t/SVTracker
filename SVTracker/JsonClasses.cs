@@ -80,6 +80,7 @@ namespace SVTracker
     public class Deck
     {
         public int deck_format { get; set; }
+        public string deck_format_name { get; set; }
         public int clan { get; set; }
         public List<Card> cards { get; set; }
     }

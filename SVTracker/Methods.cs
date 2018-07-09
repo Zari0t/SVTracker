@@ -14,7 +14,7 @@ namespace SVTracker
 {
     public class Methods
     {
-        static string JsonPathLocal = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"\cards.json";
+        public static string JsonPathLocal = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"\cards.db";
         static WebClient client = new WebClient();
 
         //Check if cards.json database is present in local files, fetch it from SVAPI if not
@@ -33,17 +33,17 @@ namespace SVTracker
             if (forceDelete)
             {
                 File.Delete(JsonPathLocal);
-                infoBox.AppendText("\r\n\r\ncards.json deleted.");
+                infoBox.AppendText("\r\n\r\ncards.db deleted.");
             }
             if (!File.Exists(JsonPathLocal))
             {
                 if (!forceDelete)
-                    infoBox.Text = "cards.json not found.";
-                infoBox.AppendText("\r\nFetching cards.json...");
+                    infoBox.Text = "cards.db not found.";
+                infoBox.AppendText("\r\nFetching cards.db...");
                 client.DownloadFile(JCardUrl, JsonPathLocal);
-                infoBox.AppendText ("\r\ncards.json obtained.");
+                infoBox.AppendText ("\r\ncards.db obtained.");
             }
-            else infoBox.Text = "cards.json found.";
+            else infoBox.Text = "cards.db found.";
         }
 
         //Create a list with all cards
@@ -136,10 +136,21 @@ namespace SVTracker
         public static Deck GetDeck(RootObject deckHash)
         {
             //Use the previously acquired hash to fetch the deck itself
-            string JDeckUrl = "https://shadowverse-portal.com/api/v1/deck?format=json&lang=ja&hash=" + deckHash.data.hash;
+            string JDeckUrl = "https://shadowverse-portal.com/api/v1/deck?format=json&lang=en&hash=" + deckHash.data.hash;
             string JDeck = client.DownloadString(JDeckUrl);
             RootObject JDeckObject = JsonConvert.DeserializeObject<RootObject>(JDeck);
             Deck deck = JDeckObject.data.deck;
+
+            //Check deck format
+            deck.deck_format_name = "Rotation";
+            if (deck.deck_format == 2)
+                deck.deck_format_name = "Take Two";
+            else foreach (Card card in deck.cards)
+                    if (card.format_type == false)
+                    {
+                        deck.deck_format_name = "Unlimited";
+                        break;
+                    }
 
             return deck;
         }
