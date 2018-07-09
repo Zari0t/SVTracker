@@ -20,12 +20,12 @@ namespace SVTracker
 
         public DeckBanner(Card card)
         {
-            this.backgroundImagePath += card.card_id + ".jpg";
+            this.backgroundImagePath += card.CardId + ".jpg";
             if (File.Exists(backgroundImagePath))
                 this.BackgroundImage = Image.FromFile(backgroundImagePath);
             else this.BackgroundImage = Image.FromFile(basePath + @"\img\cardBanner\NoImage.jpg");
-            this.costImagePath += @"cost_" + card.cost + ".png";
-            this.cardNameLabel.Text = card.card_name;
+            this.costImagePath += @"cost_" + card.Cost + ".png";
+            this.cardNameLabel.Text = card.CardName;
             InitializeComponent();
         }
 

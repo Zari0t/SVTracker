@@ -42,7 +42,7 @@
             this.cardNameLabel.Name = "cardNameLabel";
             this.cardNameLabel.Size = new System.Drawing.Size(180, 14);
             this.cardNameLabel.TabIndex = 0;
-            this.cardNameLabel.Text = "Lancelot, Twinfang Prodigy";
+            this.cardNameLabel.Text = "Card Name";
             // 
             // DeckBanner
             // 

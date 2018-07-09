@@ -45,38 +45,38 @@ namespace SVTracker
                 hash = Methods.GetDeckHash(deckCodeInput.Text);
 
                 //Check if the deck code is valid
-                if (hash.data.errors.Count == 0)
+                if (hash.Data.Errors.Count == 0)
                 {
                     infoBox.AppendText("\r\n\r\nDeck code " + deckCodeInput.Text+" fetched successfully.");
                     listBox1.Items.Clear();
 
                     //We're listing cards from local database, so let's load it in here
                     database = JsonConvert.DeserializeObject<RootObject>(json);
-                    cards = database.data.cards;
+                    cards = database.Data.Cards;
 
                     //Actually fetch the deck's contents, display info regarding it
                     deck = Methods.GetDeck(hash);
                     deckCodeLabel.Text = "Deck Code: "+deckCodeInput.Text;
-                    formatLabel.Text = deck.deck_format_name;
+                    formatLabel.Text = deck.DeckFormatName;
 
                     //Group duplicates
-                    var dup = deck.cards
-                        .GroupBy(x => new { x.card_id })
+                    var dup = deck.Cards
+                        .GroupBy(x => new { x.CardId })
                         .Select(group => new { ID = group.Key, Count = group.Count() });
 
                     //Show deck's contents
                     foreach (var basex in dup)
                     {
-                        string cardName = cards.Find(x => x.base_card_id == basex.ID.card_id).card_name;
-                        listBox1.Items.Add("[" + basex.ID.card_id + "] " + cardName + " x"+basex.Count);
+                        string cardName = cards.Find(x => x.BaseCardId == basex.ID.CardId).CardName;
+                        listBox1.Items.Add("[" + basex.ID.CardId + "] " + cardName + " x"+basex.Count);
                     }
                 }
 
                 //Lists error code and message if the deck code was invalid for some reason
                 else
                 {
-                    infoBox.AppendText("\r\n\r\n"+hash.data.errors[0].type);
-                    infoBox.AppendText("\r\n"+hash.data.errors[0].message);
+                    infoBox.AppendText("\r\n\r\n"+hash.Data.Errors[0].ErrorType);
+                    infoBox.AppendText("\r\n"+hash.Data.Errors[0].ErrorMessage);
                 }
             }
 

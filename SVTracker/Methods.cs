@@ -52,70 +52,70 @@ namespace SVTracker
             //Convert cards.json into object
             string json = File.ReadAllText(JsonPathLocal);
             RootObject database = JsonConvert.DeserializeObject<RootObject>(json);
-            List<Card> cards = database.data.cards; //we only want a list of Card objects
+            List<Card> cards = database.Data.Cards; //we only want a list of Card objects
 
             //Add missing ease-of-use values
             foreach (Card card in cards)
             {
                 //Add clan_name
-                switch (card.clan)
+                switch (card.CraftId)
                 {
                     case 0:
-                        card.clan_name = "Neutral";
+                        card.CraftName = "Neutral";
                         break;
                     case 1:
-                        card.clan_name = "Forestcraft";
+                        card.CraftName = "Forestcraft";
                         break;
                     case 2:
-                        card.clan_name = "Swordcraft";
+                        card.CraftName = "Swordcraft";
                         break;
                     case 3:
-                        card.clan_name = "Runecraft";
+                        card.CraftName = "Runecraft";
                         break;
                     case 4:
-                        card.clan_name = "Dragoncraft";
+                        card.CraftName = "Dragoncraft";
                         break;
                     case 5:
-                        card.clan_name = "Shadowcraft";
+                        card.CraftName = "Shadowcraft";
                         break;
                     case 6:
-                        card.clan_name = "Bloodcraft";
+                        card.CraftName = "Bloodcraft";
                         break;
                     case 7:
-                        card.clan_name = "Havencraft";
+                        card.CraftName = "Havencraft";
                         break;
                     case 8:
-                        card.clan_name = "Portalcraft";
+                        card.CraftName = "Portalcraft";
                         break;
                 }
                 //Add char_type_name
-                switch (card.char_type)
+                switch (card.TypeId)
                 {
                     case 1:
-                        card.char_type_name = "Follower";
+                        card.TypeName = "Follower";
                         break;
                     case 2:
                     case 3:
-                        card.char_type_name = "Amulet";
+                        card.TypeName = "Amulet";
                         break;
                     case 4:
-                        card.char_type_name = "Spell";
+                        card.TypeName = "Spell";
                         break;
                 }
                 //Add rarity_name
-                switch (card.rarity)
+                switch (card.RarityId)
                 {
                     case 1:
-                        card.rarity_name = "Bronze";
+                        card.RarityName = "Bronze";
                         break;
                     case 2:
-                        card.rarity_name = "Silver";
+                        card.RarityName = "Silver";
                         break;
                     case 3:
-                        card.rarity_name = "Gold";
+                        card.RarityName = "Gold";
                         break;
                     case 4:
-                        card.rarity_name = "Legendary";
+                        card.RarityName = "Legendary";
                         break;
                 }
             }
@@ -136,19 +136,19 @@ namespace SVTracker
         public static Deck GetDeck(RootObject deckHash)
         {
             //Use the previously acquired hash to fetch the deck itself
-            string JDeckUrl = "https://shadowverse-portal.com/api/v1/deck?format=json&lang=en&hash=" + deckHash.data.hash;
+            string JDeckUrl = "https://shadowverse-portal.com/api/v1/deck?format=json&lang=en&hash=" + deckHash.Data.DeckHash;
             string JDeck = client.DownloadString(JDeckUrl);
             RootObject JDeckObject = JsonConvert.DeserializeObject<RootObject>(JDeck);
-            Deck deck = JDeckObject.data.deck;
+            Deck deck = JDeckObject.Data.Deck;
 
             //Check deck format
-            deck.deck_format_name = "Rotation";
-            if (deck.deck_format == 2)
-                deck.deck_format_name = "Take Two";
-            else foreach (Card card in deck.cards)
-                    if (card.format_type == false)
+            deck.DeckFormatName = "Rotation";
+            if (deck.DeckFormat == 2)
+                deck.DeckFormatName = "Take Two";
+            else foreach (Card card in deck.Cards)
+                    if (card.FormatType == false)
                     {
-                        deck.deck_format_name = "Unlimited";
+                        deck.DeckFormatName = "Unlimited";
                         break;
                     }
 
