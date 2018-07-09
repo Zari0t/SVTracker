@@ -48,7 +48,7 @@ namespace SVTracker
                 if (hash.Data.Errors.Count == 0)
                 {
                     infoBox.AppendText("\r\n\r\nDeck code " + deckCodeInput.Text+" fetched successfully.");
-                    listBox1.Items.Clear();
+                    deckBannerList.Controls.Clear();
 
                     //We're listing cards from local database, so let's load it in here
                     database = JsonConvert.DeserializeObject<RootObject>(json);
@@ -65,11 +65,14 @@ namespace SVTracker
                         .Select(group => new { ID = group.Key, Count = group.Count() });
 
                     //Show deck's contents
+                    deckBannerList.Hide();
                     foreach (var basex in dup)
                     {
-                        string cardName = cards.Find(x => x.BaseCardId == basex.ID.CardId).CardName;
-                        listBox1.Items.Add("[" + basex.ID.CardId + "] " + cardName + " x"+basex.Count);
+                        Card targetCard = cards.Find(x => x.BaseCardId == basex.ID.CardId);
+                        DeckBanner banner = new DeckBanner(targetCard, basex.Count);
+                        deckBannerList.Controls.Add(banner);
                     }
+                    deckBannerList.Show();
                 }
 
                 //Lists error code and message if the deck code was invalid for some reason

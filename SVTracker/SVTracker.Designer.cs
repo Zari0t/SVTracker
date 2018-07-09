@@ -34,10 +34,10 @@
             this.infoBox = new System.Windows.Forms.TextBox();
             this.forceFetchJpJsonButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.forceFetchEnJsonButton = new System.Windows.Forms.Button();
             this.deckCodeLabel = new System.Windows.Forms.Label();
             this.formatLabel = new System.Windows.Forms.Label();
+            this.deckBannerList = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,7 +78,7 @@
             this.infoBox.Multiline = true;
             this.infoBox.Name = "infoBox";
             this.infoBox.ReadOnly = true;
-            this.infoBox.Size = new System.Drawing.Size(460, 127);
+            this.infoBox.Size = new System.Drawing.Size(441, 127);
             this.infoBox.TabIndex = 4;
             // 
             // forceFetchJpJsonButton
@@ -93,22 +93,13 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(433, 13);
+            this.button1.Location = new System.Drawing.Point(414, 13);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(43, 24);
             this.button1.TabIndex = 5;
             this.button1.Text = "Exit";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // listBox1
-            // 
-            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(482, 37);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(270, 420);
-            this.listBox1.TabIndex = 6;
             // 
             // forceFetchEnJsonButton
             // 
@@ -123,7 +114,7 @@
             // deckCodeLabel
             // 
             this.deckCodeLabel.AutoSize = true;
-            this.deckCodeLabel.Location = new System.Drawing.Point(479, 18);
+            this.deckCodeLabel.Location = new System.Drawing.Point(460, 18);
             this.deckCodeLabel.Name = "deckCodeLabel";
             this.deckCodeLabel.Size = new System.Drawing.Size(64, 13);
             this.deckCodeLabel.TabIndex = 8;
@@ -140,16 +131,26 @@
             this.formatLabel.Text = "-";
             this.formatLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // deckBannerList
+            // 
+            this.deckBannerList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.deckBannerList.AutoScroll = true;
+            this.deckBannerList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.deckBannerList.Location = new System.Drawing.Point(463, 37);
+            this.deckBannerList.Name = "deckBannerList";
+            this.deckBannerList.Size = new System.Drawing.Size(289, 420);
+            this.deckBannerList.TabIndex = 10;
+            // 
             // SVTracker
             // 
             this.AcceptButton = this.getDeckButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(764, 469);
+            this.Controls.Add(this.deckBannerList);
             this.Controls.Add(this.formatLabel);
             this.Controls.Add(this.deckCodeLabel);
             this.Controls.Add(this.forceFetchEnJsonButton);
-            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.forceFetchJpJsonButton);
             this.Controls.Add(this.infoBox);
@@ -174,10 +175,10 @@
         private System.Windows.Forms.TextBox infoBox;
         private System.Windows.Forms.Button forceFetchJpJsonButton;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button forceFetchEnJsonButton;
         private System.Windows.Forms.Label deckCodeLabel;
         private System.Windows.Forms.Label formatLabel;
+        private System.Windows.Forms.FlowLayoutPanel deckBannerList;
     }
 }
 

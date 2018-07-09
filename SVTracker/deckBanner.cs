@@ -15,18 +15,22 @@ namespace SVTracker
     public partial class DeckBanner : UserControl
     {
         static string basePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-        string backgroundImagePath = basePath + @"\img\cardBanner\";
-        string costImagePath = basePath + @"\img\cost\";
 
-        public DeckBanner(Card card)
+        public DeckBanner(Card card, int count)
         {
-            this.backgroundImagePath += card.CardId + ".jpg";
+            string backgroundImagePath = basePath + @"\img\cardBanner\" +card.CardId + ".jpg";
             if (File.Exists(backgroundImagePath))
-                this.BackgroundImage = Image.FromFile(backgroundImagePath);
-            else this.BackgroundImage = Image.FromFile(basePath + @"\img\cardBanner\NoImage.jpg");
-            this.costImagePath += @"cost_" + card.Cost + ".png";
-            this.cardNameLabel.Text = card.CardName;
+                BackgroundImage = Image.FromFile(backgroundImagePath);
+            else BackgroundImage = Image.FromFile(basePath + @"\img\cardBanner\NoImage.jpg");
+            string costImagePath = basePath + @"\img\cost\cost_" + card.Cost + ".png";
+            string rarityImagePath = basePath + @"\img\rarity\rarity_" + card.RarityId + ".png";
             InitializeComponent();
+            cardNameLabel.Text = card.CardName;
+            rarityLabel.Image = Image.FromFile(rarityImagePath);
+            costLabel.Image = new Bitmap(Image.FromFile(costImagePath), new Size(22, 22));
+            costLabel.BringToFront();
+            countLabel.Text += count;
+
         }
 
         private void DeckBanner_Load(object sender, EventArgs e)
