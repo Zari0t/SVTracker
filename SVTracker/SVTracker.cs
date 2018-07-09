@@ -37,7 +37,7 @@ namespace SVTracker
             json = File.ReadAllText(Methods.JsonPathLocal);
         }
 
-        private void getDeckButton_Click(object sender, EventArgs e)
+        private void GetDeckButton_Click(object sender, EventArgs e)
         {
             //Deck codes are always 4char long, so...
             if (deckCodeInput.TextLength == 4)
@@ -59,20 +59,7 @@ namespace SVTracker
                     deckCodeLabel.Text = "Deck Code: "+deckCodeInput.Text;
                     formatLabel.Text = deck.DeckFormatName;
 
-                    //Group duplicates
-                    var dup = deck.Cards
-                        .GroupBy(x => new { x.CardId })
-                        .Select(group => new { ID = group.Key, Count = group.Count() });
-
-                    //Show deck's contents
-                    deckBannerList.Hide();
-                    foreach (var basex in dup)
-                    {
-                        Card targetCard = cards.Find(x => x.BaseCardId == basex.ID.CardId);
-                        DeckBanner banner = new DeckBanner(targetCard, basex.Count);
-                        deckBannerList.Controls.Add(banner);
-                    }
-                    deckBannerList.Show();
+                    Methods.DeckFilter(deck, deckBannerList);
                 }
 
                 //Lists error code and message if the deck code was invalid for some reason
@@ -88,24 +75,30 @@ namespace SVTracker
                 infoBox.AppendText("\r\n\r\nDeck code must be 4 characters long.");
         }
 
-        private void forceFetchEnJsonButton_Click(object sender, EventArgs e)
+        private void ForceFetchEnJsonButton_Click(object sender, EventArgs e)
         {
-            Methods.JsonFetch(infoBox, true, 1);
+            json = Methods.JsonFetch(infoBox, true, 1);
         }
 
-        private void forceFetchJpJsonButton_Click(object sender, EventArgs e)
+        private void ForceFetchJpJsonButton_Click(object sender, EventArgs e)
         {
-            Methods.JsonFetch(infoBox, true, 2);
+            json = Methods.JsonFetch(infoBox, true, 2);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void ExitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void ResetButton_Click(object sender, EventArgs e)
+        {
+            Methods.DeckFilter (deck, deckBannerList);
         }
 
         private void SVTracker_Activated(object sender, EventArgs e)
         {
             deckCodeInput.Focus();
+            deckCodeInput.SelectAll();
         }
     }
 }

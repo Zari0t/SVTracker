@@ -18,7 +18,7 @@ namespace SVTracker
         static WebClient client = new WebClient();
 
         //Check if cards.json database is present in local files, fetch it from SVAPI if not
-        public static void JsonFetch(TextBox infoBox, bool forceDelete, int lang)
+        public static string JsonFetch(TextBox infoBox, bool forceDelete, int lang)
         {
             string JCardUrl = "https://shadowverse-portal.com/api/v1/cards?format=json&lang=";
             switch (lang)
@@ -44,6 +44,8 @@ namespace SVTracker
                 infoBox.AppendText ("\r\ncards.db obtained.");
             }
             else infoBox.Text = "cards.db found.";
+
+            return File.ReadAllText(JsonPathLocal);
         }
 
         //Create a list with all cards
@@ -153,6 +155,30 @@ namespace SVTracker
                     }
 
             return deck;
+        }
+
+        public static void DeckFilter (Deck deck, FlowLayoutPanel target)
+        {
+            target.Controls.Clear();
+
+            string json = File.ReadAllText(JsonPathLocal);
+            RootObject database = JsonConvert.DeserializeObject<RootObject>(json);
+            List<Card> cards = database.Data.Cards; //we only want a list of Card objects
+
+            //Group duplicates
+            var dup = deck.Cards
+                .GroupBy(x => new { x.CardId })
+                .Select(group => new { ID = group.Key, Count = group.Count() });
+
+            //Show deck's contents
+            target.Hide();
+            foreach (var basex in dup)
+            {
+                Card targetCard = cards.Find(x => x.BaseCardId == basex.ID.CardId);
+                CardBanner banner = new CardBanner(cards, targetCard, basex.Count);
+                target.Controls.Add(banner);
+            }
+            target.Show();
         }
     }
 }

@@ -33,11 +33,12 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.infoBox = new System.Windows.Forms.TextBox();
             this.forceFetchJpJsonButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.exitButton = new System.Windows.Forms.Button();
             this.forceFetchEnJsonButton = new System.Windows.Forms.Button();
             this.deckCodeLabel = new System.Windows.Forms.Label();
             this.formatLabel = new System.Windows.Forms.Label();
             this.deckBannerList = new System.Windows.Forms.FlowLayoutPanel();
+            this.resetButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,7 +50,7 @@
             this.getDeckButton.TabIndex = 1;
             this.getDeckButton.Text = "Get Deck";
             this.getDeckButton.UseVisualStyleBackColor = true;
-            this.getDeckButton.Click += new System.EventHandler(this.getDeckButton_Click);
+            this.getDeckButton.Click += new System.EventHandler(this.GetDeckButton_Click);
             // 
             // deckCodeInput
             // 
@@ -89,17 +90,18 @@
             this.forceFetchJpJsonButton.TabIndex = 2;
             this.forceFetchJpJsonButton.Text = "Get Json (JP)";
             this.forceFetchJpJsonButton.UseVisualStyleBackColor = true;
-            this.forceFetchJpJsonButton.Click += new System.EventHandler(this.forceFetchJpJsonButton_Click);
+            this.forceFetchJpJsonButton.Click += new System.EventHandler(this.ForceFetchJpJsonButton_Click);
             // 
-            // button1
+            // exitButton
             // 
-            this.button1.Location = new System.Drawing.Point(414, 13);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(43, 24);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Exit";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.exitButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.exitButton.Location = new System.Drawing.Point(410, 300);
+            this.exitButton.Name = "exitButton";
+            this.exitButton.Size = new System.Drawing.Size(43, 24);
+            this.exitButton.TabIndex = 5;
+            this.exitButton.Text = "Exit";
+            this.exitButton.UseVisualStyleBackColor = true;
+            this.exitButton.Click += new System.EventHandler(this.ExitButton_Click);
             // 
             // forceFetchEnJsonButton
             // 
@@ -109,7 +111,7 @@
             this.forceFetchEnJsonButton.TabIndex = 7;
             this.forceFetchEnJsonButton.Text = "Get Json (EN)";
             this.forceFetchEnJsonButton.UseVisualStyleBackColor = true;
-            this.forceFetchEnJsonButton.Click += new System.EventHandler(this.forceFetchEnJsonButton_Click);
+            this.forceFetchEnJsonButton.Click += new System.EventHandler(this.ForceFetchEnJsonButton_Click);
             // 
             // deckCodeLabel
             // 
@@ -141,17 +143,29 @@
             this.deckBannerList.Size = new System.Drawing.Size(289, 420);
             this.deckBannerList.TabIndex = 10;
             // 
+            // resetButton
+            // 
+            this.resetButton.Location = new System.Drawing.Point(405, 13);
+            this.resetButton.Name = "resetButton";
+            this.resetButton.Size = new System.Drawing.Size(48, 23);
+            this.resetButton.TabIndex = 11;
+            this.resetButton.Text = "Reset";
+            this.resetButton.UseVisualStyleBackColor = true;
+            this.resetButton.Click += new System.EventHandler(this.ResetButton_Click);
+            // 
             // SVTracker
             // 
             this.AcceptButton = this.getDeckButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.exitButton;
             this.ClientSize = new System.Drawing.Size(764, 469);
+            this.Controls.Add(this.resetButton);
             this.Controls.Add(this.deckBannerList);
             this.Controls.Add(this.formatLabel);
             this.Controls.Add(this.deckCodeLabel);
             this.Controls.Add(this.forceFetchEnJsonButton);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.exitButton);
             this.Controls.Add(this.forceFetchJpJsonButton);
             this.Controls.Add(this.infoBox);
             this.Controls.Add(this.panel1);
@@ -174,11 +188,12 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox infoBox;
         private System.Windows.Forms.Button forceFetchJpJsonButton;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.Button forceFetchEnJsonButton;
         private System.Windows.Forms.Label deckCodeLabel;
         private System.Windows.Forms.Label formatLabel;
         private System.Windows.Forms.FlowLayoutPanel deckBannerList;
+        private System.Windows.Forms.Button resetButton;
     }
 }
 

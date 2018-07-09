@@ -1,6 +1,6 @@
 ﻿namespace SVTracker
 {
-    partial class DeckBanner
+    partial class CardBanner
     {
         /// <summary> 
         /// Required designer variable.
@@ -86,9 +86,8 @@
             this.countLabel.Name = "countLabel";
             this.countLabel.Size = new System.Drawing.Size(30, 14);
             this.countLabel.TabIndex = 3;
-            this.countLabel.Text = "×";
             // 
-            // DeckBanner
+            // CardBanner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -101,7 +100,8 @@
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "DeckBanner";
             this.Size = new System.Drawing.Size(270, 46);
-            this.Load += new System.EventHandler(this.DeckBanner_Load);
+            this.Load += new System.EventHandler(this.CardBanner_Load);
+            this.Click += new System.EventHandler(this.CardBanner_Click);
             this.ResumeLayout(false);
 
         }

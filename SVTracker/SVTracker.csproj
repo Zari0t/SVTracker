@@ -58,11 +58,11 @@
     <Compile Include="Methods.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DeckBanner.cs">
+    <Compile Include="CardBanner.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DeckBanner.Designer.cs">
-      <DependentUpon>DeckBanner.cs</DependentUpon>
+    <Compile Include="CardBanner.Designer.cs">
+      <DependentUpon>CardBanner.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="SVTracker.resx">
       <DependentUpon>SVTracker.cs</DependentUpon>
@@ -76,8 +76,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="DeckBanner.resx">
-      <DependentUpon>DeckBanner.cs</DependentUpon>
+    <EmbeddedResource Include="CardBanner.resx">
+      <DependentUpon>CardBanner.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
