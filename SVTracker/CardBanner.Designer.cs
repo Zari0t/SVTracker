@@ -111,6 +111,6 @@
         private System.Windows.Forms.Label cardNameLabel;
         private System.Windows.Forms.Label costLabel;
         private System.Windows.Forms.Label rarityLabel;
-        private System.Windows.Forms.Label countLabel;
+        public System.Windows.Forms.Label countLabel;
     }
 }

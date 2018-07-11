@@ -30,16 +30,18 @@
         {
             this.getDeckButton = new System.Windows.Forms.Button();
             this.deckCodeInput = new System.Windows.Forms.TextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.infoBox = new System.Windows.Forms.TextBox();
-            this.forceFetchJpJsonButton = new System.Windows.Forms.Button();
-            this.exitButton = new System.Windows.Forms.Button();
+            this.topPanel = new System.Windows.Forms.Panel();
             this.forceFetchEnJsonButton = new System.Windows.Forms.Button();
+            this.forceFetchJpJsonButton = new System.Windows.Forms.Button();
+            this.resetButton = new System.Windows.Forms.Button();
+            this.infoBox = new System.Windows.Forms.TextBox();
+            this.exitButton = new System.Windows.Forms.Button();
             this.deckCodeLabel = new System.Windows.Forms.Label();
             this.formatLabel = new System.Windows.Forms.Label();
             this.deckBannerList = new System.Windows.Forms.FlowLayoutPanel();
-            this.resetButton = new System.Windows.Forms.Button();
-            this.panel1.SuspendLayout();
+            this.handBannerList = new System.Windows.Forms.FlowLayoutPanel();
+            this.handLabel = new System.Windows.Forms.Label();
+            this.topPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // getDeckButton
@@ -63,28 +65,31 @@
             this.deckCodeInput.Size = new System.Drawing.Size(100, 20);
             this.deckCodeInput.TabIndex = 0;
             // 
-            // panel1
+            // topPanel
             // 
-            this.panel1.Controls.Add(this.getDeckButton);
-            this.panel1.Controls.Add(this.deckCodeInput);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(180, 26);
-            this.panel1.TabIndex = 2;
+            this.topPanel.Controls.Add(this.getDeckButton);
+            this.topPanel.Controls.Add(this.deckCodeInput);
+            this.topPanel.Controls.Add(this.forceFetchEnJsonButton);
+            this.topPanel.Controls.Add(this.forceFetchJpJsonButton);
+            this.topPanel.Controls.Add(this.resetButton);
+            this.topPanel.Location = new System.Drawing.Point(12, 12);
+            this.topPanel.Name = "topPanel";
+            this.topPanel.Size = new System.Drawing.Size(443, 26);
+            this.topPanel.TabIndex = 2;
             // 
-            // infoBox
+            // forceFetchEnJsonButton
             // 
-            this.infoBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.infoBox.Location = new System.Drawing.Point(12, 330);
-            this.infoBox.Multiline = true;
-            this.infoBox.Name = "infoBox";
-            this.infoBox.ReadOnly = true;
-            this.infoBox.Size = new System.Drawing.Size(441, 127);
-            this.infoBox.TabIndex = 4;
+            this.forceFetchEnJsonButton.Location = new System.Drawing.Point(188, 1);
+            this.forceFetchEnJsonButton.Name = "forceFetchEnJsonButton";
+            this.forceFetchEnJsonButton.Size = new System.Drawing.Size(81, 24);
+            this.forceFetchEnJsonButton.TabIndex = 7;
+            this.forceFetchEnJsonButton.Text = "Get Json (EN)";
+            this.forceFetchEnJsonButton.UseVisualStyleBackColor = true;
+            this.forceFetchEnJsonButton.Click += new System.EventHandler(this.ForceFetchEnJsonButton_Click);
             // 
             // forceFetchJpJsonButton
             // 
-            this.forceFetchJpJsonButton.Location = new System.Drawing.Point(285, 13);
+            this.forceFetchJpJsonButton.Location = new System.Drawing.Point(275, 1);
             this.forceFetchJpJsonButton.Name = "forceFetchJpJsonButton";
             this.forceFetchJpJsonButton.Size = new System.Drawing.Size(81, 24);
             this.forceFetchJpJsonButton.TabIndex = 2;
@@ -92,26 +97,36 @@
             this.forceFetchJpJsonButton.UseVisualStyleBackColor = true;
             this.forceFetchJpJsonButton.Click += new System.EventHandler(this.ForceFetchJpJsonButton_Click);
             // 
+            // resetButton
+            // 
+            this.resetButton.Location = new System.Drawing.Point(393, 1);
+            this.resetButton.Name = "resetButton";
+            this.resetButton.Size = new System.Drawing.Size(48, 24);
+            this.resetButton.TabIndex = 11;
+            this.resetButton.Text = "Reset";
+            this.resetButton.UseVisualStyleBackColor = true;
+            this.resetButton.Click += new System.EventHandler(this.ResetButton_Click);
+            // 
+            // infoBox
+            // 
+            this.infoBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.infoBox.Location = new System.Drawing.Point(12, 399);
+            this.infoBox.Multiline = true;
+            this.infoBox.Name = "infoBox";
+            this.infoBox.ReadOnly = true;
+            this.infoBox.Size = new System.Drawing.Size(441, 58);
+            this.infoBox.TabIndex = 4;
+            // 
             // exitButton
             // 
             this.exitButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.exitButton.Location = new System.Drawing.Point(410, 300);
+            this.exitButton.Location = new System.Drawing.Point(410, 369);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(43, 24);
             this.exitButton.TabIndex = 5;
             this.exitButton.Text = "Exit";
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.ExitButton_Click);
-            // 
-            // forceFetchEnJsonButton
-            // 
-            this.forceFetchEnJsonButton.Location = new System.Drawing.Point(198, 13);
-            this.forceFetchEnJsonButton.Name = "forceFetchEnJsonButton";
-            this.forceFetchEnJsonButton.Size = new System.Drawing.Size(81, 24);
-            this.forceFetchEnJsonButton.TabIndex = 7;
-            this.forceFetchEnJsonButton.Text = "Get Json (EN)";
-            this.forceFetchEnJsonButton.UseVisualStyleBackColor = true;
-            this.forceFetchEnJsonButton.Click += new System.EventHandler(this.ForceFetchEnJsonButton_Click);
             // 
             // deckCodeLabel
             // 
@@ -143,15 +158,25 @@
             this.deckBannerList.Size = new System.Drawing.Size(289, 420);
             this.deckBannerList.TabIndex = 10;
             // 
-            // resetButton
+            // handBannerList
             // 
-            this.resetButton.Location = new System.Drawing.Point(405, 13);
-            this.resetButton.Name = "resetButton";
-            this.resetButton.Size = new System.Drawing.Size(48, 23);
-            this.resetButton.TabIndex = 11;
-            this.resetButton.Text = "Reset";
-            this.resetButton.UseVisualStyleBackColor = true;
-            this.resetButton.Click += new System.EventHandler(this.ResetButton_Click);
+            this.handBannerList.AutoScroll = true;
+            this.handBannerList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.handBannerList.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.handBannerList.Location = new System.Drawing.Point(12, 82);
+            this.handBannerList.Name = "handBannerList";
+            this.handBannerList.Size = new System.Drawing.Size(289, 230);
+            this.handBannerList.TabIndex = 12;
+            this.handBannerList.WrapContents = false;
+            // 
+            // handLabel
+            // 
+            this.handLabel.AutoSize = true;
+            this.handLabel.Location = new System.Drawing.Point(12, 66);
+            this.handLabel.Name = "handLabel";
+            this.handLabel.Size = new System.Drawing.Size(70, 13);
+            this.handLabel.TabIndex = 13;
+            this.handLabel.Text = "Current Hand";
             // 
             // SVTracker
             // 
@@ -160,22 +185,21 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.exitButton;
             this.ClientSize = new System.Drawing.Size(764, 469);
-            this.Controls.Add(this.resetButton);
+            this.Controls.Add(this.handLabel);
+            this.Controls.Add(this.handBannerList);
             this.Controls.Add(this.deckBannerList);
             this.Controls.Add(this.formatLabel);
             this.Controls.Add(this.deckCodeLabel);
-            this.Controls.Add(this.forceFetchEnJsonButton);
             this.Controls.Add(this.exitButton);
-            this.Controls.Add(this.forceFetchJpJsonButton);
             this.Controls.Add(this.infoBox);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.topPanel);
             this.Name = "SVTracker";
             this.Text = "SVTracker";
             this.Activated += new System.EventHandler(this.SVTracker_Activated);
             this.Load += new System.EventHandler(this.SVTracker_Load);
             this.Shown += new System.EventHandler(this.SVTracker_Shown);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.topPanel.ResumeLayout(false);
+            this.topPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -185,7 +209,7 @@
 
         private System.Windows.Forms.Button getDeckButton;
         private System.Windows.Forms.TextBox deckCodeInput;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel topPanel;
         private System.Windows.Forms.TextBox infoBox;
         private System.Windows.Forms.Button forceFetchJpJsonButton;
         private System.Windows.Forms.Button exitButton;
@@ -194,6 +218,8 @@
         private System.Windows.Forms.Label formatLabel;
         private System.Windows.Forms.FlowLayoutPanel deckBannerList;
         private System.Windows.Forms.Button resetButton;
+        private System.Windows.Forms.FlowLayoutPanel handBannerList;
+        private System.Windows.Forms.Label handLabel;
     }
 }
 

@@ -175,7 +175,7 @@ namespace SVTracker
             foreach (var basex in dup)
             {
                 Card targetCard = cards.Find(x => x.BaseCardId == basex.ID.CardId);
-                CardBanner banner = new CardBanner(cards, targetCard, basex.Count);
+                CardBanner banner = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, basex.Count, true);
                 target.Controls.Add(banner);
             }
             target.Show();

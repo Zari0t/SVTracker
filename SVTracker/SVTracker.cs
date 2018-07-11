@@ -92,6 +92,7 @@ namespace SVTracker
 
         private void ResetButton_Click(object sender, EventArgs e)
         {
+            handBannerList.Controls.Clear();
             Methods.DeckFilter (deck, deckBannerList);
         }
 
@@ -99,6 +100,49 @@ namespace SVTracker
         {
             deckCodeInput.Focus();
             deckCodeInput.SelectAll();
+        }
+
+        public void AddToHand(CardBanner banner)
+        {
+            handBannerList.Controls.Add(banner);
+        }
+
+        public void AddToDeck(int targetId)
+        {
+            bool notInDeck = true;
+            Card targetCard = cards.Find(x => x.CardId == targetId);
+            List<CardBanner> currentDeck = new List<CardBanner>();
+            foreach (CardBanner control in deckBannerList.Controls)
+            {
+                if (control.cardId == targetCard.CardId)
+                {
+                    control.cardCount++;
+                    control.countLabel.Text = "×" + control.cardCount;
+                    notInDeck = false;
+                }
+                currentDeck.Add(control);
+            }
+            if (notInDeck)
+            {
+                CardBanner banner = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, true);
+                currentDeck.Add(banner);
+                deckBannerList.Controls.Add(banner);
+            }
+        }
+
+        public void HolyFuckItsStan()
+        {
+            deckBannerList.Controls.Clear();
+            AddToDeck(900041010);
+            AddToDeck(900041010);
+            AddToDeck(900041010);
+            AddToDeck(900041020);
+            AddToDeck(900041020);
+            AddToDeck(900041020);
+            AddToDeck(900044010);
+            AddToDeck(900044010);
+            AddToDeck(900044010);
+            AddToDeck(900044020);
         }
     }
 }
