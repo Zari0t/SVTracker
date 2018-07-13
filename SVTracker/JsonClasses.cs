@@ -58,6 +58,11 @@ namespace SVTracker
 
         [JsonProperty("org_evo_skill_disc")]
         public string OrgEvoSKillDisc;                  //Effect/ability text of the evolved form of the card (if it's a follower), with BBSCode formatting on keywords and child cards
+        [JsonProperty("skill")]
+        public string CardScript;                       //Unused; used internally in the game to note which kinds of abilities a card has
+
+        [JsonProperty("skill_option")]
+        public string CardScriptOption;                 //Unused; used internally in the game to pass arguments to card abilities that require them
 
         [JsonProperty("cost")]
         public int Cost;                                //The card's PP cost
@@ -108,8 +113,6 @@ namespace SVTracker
         /*
          * public int foil_card_id;                     //Internal ID number of the animated version of the card; is always card_id+1
          * public bool is_foil;                         //Unused; used internally in the game to check if a card is animated or not
-         * public string skill;                         //Unused; used internally in the game to note which kinds of abilities a card has
-         * public string skill_option;                  //Unused; used internally in the game to pass arguments to card abilities that require them
          * public int get_red_ether;                    //How many red vials you obtain when disenchanting the card
          * public int use_red_ether;                    //How many red vials you need to craft the card
          * public string cv;                            //The name of the voice actor of the card (if it has one). Only present in JA json

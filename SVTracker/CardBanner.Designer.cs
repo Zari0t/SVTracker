@@ -44,7 +44,7 @@
             this.cardNameLabel.Location = new System.Drawing.Point(60, 16);
             this.cardNameLabel.Margin = new System.Windows.Forms.Padding(0);
             this.cardNameLabel.Name = "cardNameLabel";
-            this.cardNameLabel.Size = new System.Drawing.Size(176, 14);
+            this.cardNameLabel.Size = new System.Drawing.Size(166, 14);
             this.cardNameLabel.TabIndex = 0;
             this.cardNameLabel.Text = "Card Name";
             // 
@@ -81,11 +81,12 @@
             this.countLabel.Font = new System.Drawing.Font("Verdana", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.countLabel.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.countLabel.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.countLabel.Location = new System.Drawing.Point(240, 16);
+            this.countLabel.Location = new System.Drawing.Point(230, 16);
             this.countLabel.Margin = new System.Windows.Forms.Padding(0);
             this.countLabel.Name = "countLabel";
-            this.countLabel.Size = new System.Drawing.Size(30, 14);
+            this.countLabel.Size = new System.Drawing.Size(40, 14);
             this.countLabel.TabIndex = 3;
+            this.countLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // CardBanner
             // 
@@ -98,7 +99,7 @@
             this.Controls.Add(this.costLabel);
             this.Controls.Add(this.cardNameLabel);
             this.Margin = new System.Windows.Forms.Padding(0);
-            this.Name = "DeckBanner";
+            this.Name = "CardBanner";
             this.Size = new System.Drawing.Size(270, 46);
             this.Load += new System.EventHandler(this.CardBanner_Load);
             this.Click += new System.EventHandler(this.CardBanner_Click);

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SVTracker));
             this.getDeckButton = new System.Windows.Forms.Button();
             this.deckCodeInput = new System.Windows.Forms.TextBox();
             this.topPanel = new System.Windows.Forms.Panel();
@@ -41,6 +42,10 @@
             this.deckBannerList = new System.Windows.Forms.FlowLayoutPanel();
             this.handBannerList = new System.Windows.Forms.FlowLayoutPanel();
             this.handLabel = new System.Windows.Forms.Label();
+            this.numberInDeckLabel = new System.Windows.Forms.Label();
+            this.numberInHandLabel = new System.Windows.Forms.Label();
+            this.resonanceLabel = new System.Windows.Forms.Label();
+            this.shadowCountLabel = new System.Windows.Forms.Label();
             this.topPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -163,7 +168,7 @@
             this.handBannerList.AutoScroll = true;
             this.handBannerList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.handBannerList.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.handBannerList.Location = new System.Drawing.Point(12, 82);
+            this.handBannerList.Location = new System.Drawing.Point(12, 56);
             this.handBannerList.Name = "handBannerList";
             this.handBannerList.Size = new System.Drawing.Size(289, 230);
             this.handBannerList.TabIndex = 12;
@@ -172,11 +177,51 @@
             // handLabel
             // 
             this.handLabel.AutoSize = true;
-            this.handLabel.Location = new System.Drawing.Point(12, 66);
+            this.handLabel.Location = new System.Drawing.Point(12, 40);
             this.handLabel.Name = "handLabel";
             this.handLabel.Size = new System.Drawing.Size(70, 13);
             this.handLabel.TabIndex = 13;
             this.handLabel.Text = "Current Hand";
+            // 
+            // numberInDeckLabel
+            // 
+            this.numberInDeckLabel.AutoSize = true;
+            this.numberInDeckLabel.Location = new System.Drawing.Point(310, 81);
+            this.numberInDeckLabel.Name = "numberInDeckLabel";
+            this.numberInDeckLabel.Size = new System.Drawing.Size(75, 13);
+            this.numberInDeckLabel.TabIndex = 14;
+            this.numberInDeckLabel.Text = "Cards in deck:";
+            this.numberInDeckLabel.Visible = false;
+            // 
+            // numberInHandLabel
+            // 
+            this.numberInHandLabel.AutoSize = true;
+            this.numberInHandLabel.Location = new System.Drawing.Point(310, 56);
+            this.numberInHandLabel.Name = "numberInHandLabel";
+            this.numberInHandLabel.Size = new System.Drawing.Size(75, 13);
+            this.numberInHandLabel.TabIndex = 15;
+            this.numberInHandLabel.Text = "Cards in hand:";
+            this.numberInHandLabel.Visible = false;
+            // 
+            // resonanceLabel
+            // 
+            this.resonanceLabel.AutoSize = true;
+            this.resonanceLabel.Location = new System.Drawing.Point(310, 94);
+            this.resonanceLabel.Name = "resonanceLabel";
+            this.resonanceLabel.Size = new System.Drawing.Size(98, 13);
+            this.resonanceLabel.TabIndex = 16;
+            this.resonanceLabel.Text = "Resonance Active!";
+            this.resonanceLabel.Visible = false;
+            // 
+            // shadowCountLabel
+            // 
+            this.shadowCountLabel.AutoSize = true;
+            this.shadowCountLabel.Location = new System.Drawing.Point(310, 117);
+            this.shadowCountLabel.Name = "shadowCountLabel";
+            this.shadowCountLabel.Size = new System.Drawing.Size(54, 13);
+            this.shadowCountLabel.TabIndex = 17;
+            this.shadowCountLabel.Text = "Shadows:";
+            this.shadowCountLabel.Visible = false;
             // 
             // SVTracker
             // 
@@ -185,6 +230,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.exitButton;
             this.ClientSize = new System.Drawing.Size(764, 469);
+            this.Controls.Add(this.shadowCountLabel);
+            this.Controls.Add(this.resonanceLabel);
+            this.Controls.Add(this.numberInHandLabel);
+            this.Controls.Add(this.numberInDeckLabel);
             this.Controls.Add(this.handLabel);
             this.Controls.Add(this.handBannerList);
             this.Controls.Add(this.deckBannerList);
@@ -193,6 +242,7 @@
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.infoBox);
             this.Controls.Add(this.topPanel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SVTracker";
             this.Text = "SVTracker";
             this.Activated += new System.EventHandler(this.SVTracker_Activated);
@@ -220,6 +270,10 @@
         private System.Windows.Forms.Button resetButton;
         private System.Windows.Forms.FlowLayoutPanel handBannerList;
         private System.Windows.Forms.Label handLabel;
+        private System.Windows.Forms.Label numberInDeckLabel;
+        private System.Windows.Forms.Label numberInHandLabel;
+        private System.Windows.Forms.Label resonanceLabel;
+        private System.Windows.Forms.Label shadowCountLabel;
     }
 }
 
