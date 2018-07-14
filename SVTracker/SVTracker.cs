@@ -1,9 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-
 using System.IO;
-
 using System.Windows.Forms;
 
 namespace SVTracker
@@ -60,9 +58,7 @@ namespace SVTracker
 
                     cardsInHand = 0;
                     shadowCount = 0;
-                    if (deck.DeckFormat == 1)
-                        cardsInDeck = 40;
-                    else cardsInDeck = 30;
+                    cardsInDeck = deck.Cards.Count;
                     numberInHandLabel.Text = "Cards in hand: " + cardsInHand;
                     numberInDeckLabel.Text = "Cards in deck: " + cardsInDeck;
                     shadowCountLabel.Text = "Shadows: " + shadowCount;

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 
@@ -174,7 +170,7 @@ namespace SVTracker
             target.Hide();
             foreach (var basex in dup)
             {
-                Card targetCard = cards.Find(x => x.BaseCardId == basex.ID.CardId);
+                Card targetCard = cards.Find(x => x.CardId == basex.ID.CardId);
                 CardBanner banner = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, basex.Count, true);
                 target.Controls.Add(banner);
             }
