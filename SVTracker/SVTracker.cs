@@ -44,6 +44,7 @@ namespace SVTracker
                 {
                     infoBox.AppendText("\r\n\r\nDeck code " + deckCodeInput.Text+" fetched successfully.\r\n");
                     deckBannerList.Controls.Clear();
+                    handBannerList.Controls.Clear();
 
                     //We're listing cards from local database, so let's load it in here
                     database = JsonConvert.DeserializeObject<RootObject>(json);
@@ -122,8 +123,9 @@ namespace SVTracker
         //Checks if Resonance is active or not
         public void ResonanceCheck()
         {
-            if (cardsInDeck % 2 == 0)
-                resonanceLabel.Show();
+            if (deck.Craft == 8)
+                if (cardsInDeck % 2 == 0)
+                    resonanceLabel.Show();
             else resonanceLabel.Hide();
         }
 
