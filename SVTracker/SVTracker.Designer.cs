@@ -115,7 +115,7 @@
             // infoBox
             // 
             this.infoBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.infoBox.Location = new System.Drawing.Point(12, 399);
+            this.infoBox.Location = new System.Drawing.Point(12, 391);
             this.infoBox.Multiline = true;
             this.infoBox.Name = "infoBox";
             this.infoBox.ReadOnly = true;
@@ -125,7 +125,7 @@
             // exitButton
             // 
             this.exitButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.exitButton.Location = new System.Drawing.Point(410, 369);
+            this.exitButton.Location = new System.Drawing.Point(410, 363);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(43, 24);
             this.exitButton.TabIndex = 5;
@@ -158,9 +158,9 @@
             this.deckBannerList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.deckBannerList.AutoScroll = true;
             this.deckBannerList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.deckBannerList.Location = new System.Drawing.Point(463, 37);
+            this.deckBannerList.Location = new System.Drawing.Point(463, 33);
             this.deckBannerList.Name = "deckBannerList";
-            this.deckBannerList.Size = new System.Drawing.Size(289, 420);
+            this.deckBannerList.Size = new System.Drawing.Size(289, 416);
             this.deckBannerList.TabIndex = 10;
             // 
             // handBannerList
@@ -170,7 +170,7 @@
             this.handBannerList.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.handBannerList.Location = new System.Drawing.Point(12, 56);
             this.handBannerList.Name = "handBannerList";
-            this.handBannerList.Size = new System.Drawing.Size(289, 230);
+            this.handBannerList.Size = new System.Drawing.Size(289, 232);
             this.handBannerList.TabIndex = 12;
             this.handBannerList.WrapContents = false;
             // 
@@ -229,7 +229,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.exitButton;
-            this.ClientSize = new System.Drawing.Size(764, 469);
+            this.ClientSize = new System.Drawing.Size(764, 461);
             this.Controls.Add(this.shadowCountLabel);
             this.Controls.Add(this.resonanceLabel);
             this.Controls.Add(this.numberInHandLabel);
