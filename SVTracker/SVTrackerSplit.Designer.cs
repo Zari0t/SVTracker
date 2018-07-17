@@ -1,6 +1,6 @@
 ﻿namespace SVTracker
 {
-    partial class SVTracker
+    partial class SVTrackerSplit
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SVTracker));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SVTrackerSplit));
             this.getDeckButton = new System.Windows.Forms.Button();
             this.deckCodeInput = new System.Windows.Forms.TextBox();
             this.topPanel = new System.Windows.Forms.Panel();
@@ -37,9 +37,6 @@
             this.resetButton = new System.Windows.Forms.Button();
             this.infoBox = new System.Windows.Forms.TextBox();
             this.exitButton = new System.Windows.Forms.Button();
-            this.deckCodeLabel = new System.Windows.Forms.Label();
-            this.formatLabel = new System.Windows.Forms.Label();
-            this.deckBannerList = new System.Windows.Forms.FlowLayoutPanel();
             this.handBannerList = new System.Windows.Forms.FlowLayoutPanel();
             this.handLabel = new System.Windows.Forms.Label();
             this.numberInDeckLabel = new System.Windows.Forms.Label();
@@ -114,8 +111,7 @@
             // 
             // infoBox
             // 
-            this.infoBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.infoBox.Location = new System.Drawing.Point(12, 391);
+            this.infoBox.Location = new System.Drawing.Point(12, 294);
             this.infoBox.Multiline = true;
             this.infoBox.Name = "infoBox";
             this.infoBox.ReadOnly = true;
@@ -125,43 +121,13 @@
             // exitButton
             // 
             this.exitButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.exitButton.Location = new System.Drawing.Point(410, 363);
+            this.exitButton.Location = new System.Drawing.Point(410, 264);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(43, 24);
             this.exitButton.TabIndex = 5;
             this.exitButton.Text = "Exit";
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.ExitButton_Click);
-            // 
-            // deckCodeLabel
-            // 
-            this.deckCodeLabel.AutoSize = true;
-            this.deckCodeLabel.Location = new System.Drawing.Point(460, 18);
-            this.deckCodeLabel.Name = "deckCodeLabel";
-            this.deckCodeLabel.Size = new System.Drawing.Size(64, 13);
-            this.deckCodeLabel.TabIndex = 8;
-            this.deckCodeLabel.Text = "Deck Code:";
-            this.deckCodeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // formatLabel
-            // 
-            this.formatLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.formatLabel.Location = new System.Drawing.Point(672, 18);
-            this.formatLabel.Name = "formatLabel";
-            this.formatLabel.Size = new System.Drawing.Size(80, 13);
-            this.formatLabel.TabIndex = 9;
-            this.formatLabel.Text = "-";
-            this.formatLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // deckBannerList
-            // 
-            this.deckBannerList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.deckBannerList.AutoScroll = true;
-            this.deckBannerList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.deckBannerList.Location = new System.Drawing.Point(463, 33);
-            this.deckBannerList.Name = "deckBannerList";
-            this.deckBannerList.Size = new System.Drawing.Size(289, 416);
-            this.deckBannerList.TabIndex = 10;
             // 
             // handBannerList
             // 
@@ -223,31 +189,28 @@
             this.shadowCountLabel.Text = "Shadows:";
             this.shadowCountLabel.Visible = false;
             // 
-            // SVTracker
+            // SVTrackerSplit
             // 
             this.AcceptButton = this.getDeckButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.exitButton;
-            this.ClientSize = new System.Drawing.Size(764, 461);
+            this.ClientSize = new System.Drawing.Size(465, 362);
             this.Controls.Add(this.shadowCountLabel);
             this.Controls.Add(this.resonanceLabel);
             this.Controls.Add(this.numberInHandLabel);
             this.Controls.Add(this.numberInDeckLabel);
             this.Controls.Add(this.handLabel);
             this.Controls.Add(this.handBannerList);
-            this.Controls.Add(this.deckBannerList);
-            this.Controls.Add(this.formatLabel);
-            this.Controls.Add(this.deckCodeLabel);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.infoBox);
             this.Controls.Add(this.topPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "SVTracker";
-            this.Text = "SVTracker";
-            this.Activated += new System.EventHandler(this.SVTracker_Activated);
-            this.Load += new System.EventHandler(this.SVTracker_Load);
-            this.Shown += new System.EventHandler(this.SVTracker_Shown);
+            this.Name = "SVTrackerSplit";
+            this.Text = "SVTrackerSplit";
+            this.Activated += new System.EventHandler(this.SVTrackerSplit_Activated);
+            this.Load += new System.EventHandler(this.SVTrackerSplit_Load);
+            this.Shown += new System.EventHandler(this.SVTrackerSplit_Shown);
             this.topPanel.ResumeLayout(false);
             this.topPanel.PerformLayout();
             this.ResumeLayout(false);
@@ -264,9 +227,6 @@
         private System.Windows.Forms.Button forceFetchJpJsonButton;
         private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.Button forceFetchEnJsonButton;
-        private System.Windows.Forms.Label deckCodeLabel;
-        private System.Windows.Forms.Label formatLabel;
-        public System.Windows.Forms.FlowLayoutPanel deckBannerList;
         private System.Windows.Forms.Button resetButton;
         public System.Windows.Forms.FlowLayoutPanel handBannerList;
         private System.Windows.Forms.Label handLabel;

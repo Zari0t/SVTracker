@@ -12,7 +12,7 @@ namespace SVTracker
         RootObject hash, database = new RootObject();
         Deck deck = new Deck();
         List<Card> cards = new List<Card>();
-        int cardsInHand = 0, cardsInDeck = 0, shadowCount = 0;
+        public int cardsInHand = 0, cardsInDeck = 0, shadowCount = 0;
 
         public SVTracker()
         {
@@ -103,9 +103,7 @@ namespace SVTracker
         {
             cardsInHand = 0;
             shadowCount = 0;
-            if (deck.DeckFormat == 1)
-                cardsInDeck = 40;
-            else cardsInDeck = 30;
+            cardsInDeck = deck.Cards.Count;
             numberInHandLabel.Text = "Cards in hand: " + cardsInHand;
             numberInDeckLabel.Text = "Cards in deck: " + cardsInDeck;
             shadowCountLabel.Text = "Shadows: " + shadowCount;

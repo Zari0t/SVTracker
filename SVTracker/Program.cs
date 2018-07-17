@@ -14,6 +14,7 @@ namespace SVTracker
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new SVTracker());
+            //Application.Run(new SVTrackerSplit());
         }
     }
 }

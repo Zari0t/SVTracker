@@ -52,15 +52,30 @@ namespace SVTracker
         //Only event I care about tbh
         private void CardBanner_Click(object sender, EventArgs e)
         {
-            //
-            SVTracker target = (SVTracker)Parent.Parent;
+            bool isSplit = true;
+
+            if (Parent.Parent.Name == "SVTracker")
+                isSplit = false;
             CardBanner banner = new CardBanner(cardId, cardName, cardCost, cardRarityId, cardCount, isInDeck);
 
             if (isInDeck)
             {
-                banner.isInDeck = false;
-                banner.countLabel.ResetText();
-                target.AddToHand(banner.cardId, true);
+                if (isSplit)
+                {
+                    DeckWindow source = (DeckWindow)Parent.Parent;
+                    SVTrackerSplit target = source.mainWindow;
+                    banner.isInDeck = false;
+                    banner.countLabel.ResetText();
+                    target.AddToHand(banner.cardId, true);
+                }
+                else
+                {
+                    SVTracker target = (SVTracker)Parent.Parent;
+                    banner.isInDeck = false;
+                    banner.countLabel.ResetText();
+                    target.AddToHand(banner.cardId, true);
+                }
+                
                 if (cardCount > 1)
                 {
                     cardCount--;
@@ -70,8 +85,18 @@ namespace SVTracker
             }
             else
             {
-                Dispose();
-                target.PlayCard(banner.cardId);
+                if (isSplit)
+                {
+                    SVTrackerSplit target = (SVTrackerSplit)Parent.Parent;
+                    Dispose();
+                    target.PlayCard(banner.cardId);
+                }
+                else
+                {
+                    SVTracker target = (SVTracker)Parent.Parent;
+                    Dispose();
+                    target.PlayCard(banner.cardId);
+                }
             }
             banner.Dispose();
         }
