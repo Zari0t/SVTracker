@@ -163,7 +163,10 @@ namespace SVTracker
         public string DeckFormatName;
 
         [JsonProperty("clan")]
-        public int Craft;
+        public int CraftId;
+
+        [JsonProperty("clan_name")]
+        public string CraftName;
 
         [JsonProperty("cards")]
         public List<Card> Cards;

@@ -121,7 +121,7 @@ namespace SVTracker
         //Checks if Resonance is active or not
         public void ResonanceCheck()
         {
-            if (deck.Craft == 8)
+            if (deck.CraftId == 8)
                 if (cardsInDeck % 2 == 0)
                     resonanceLabel.Show();
             else resonanceLabel.Hide();

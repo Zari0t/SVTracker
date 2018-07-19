@@ -13,7 +13,10 @@ namespace SVTracker
         public bool isInDeck;
         public string cardName;
 
-        //Constructor
+        //Constructors
+
+        public CardBanner() { }
+
         public CardBanner(int cardId, string cardName, int cardCost, int cardRarityId, int cardCount, bool isInDeck)
         {
             //Instance variables
@@ -35,7 +38,8 @@ namespace SVTracker
             cardNameLabel.Text = cardName;
             rarityLabel.Image = Image.FromFile(rarityImagePath);
             costLabel.Image = new Bitmap(Image.FromFile(costImagePath), new Size(22, 22));
-            countLabel.Text = "×" + cardCount;
+            if (isInDeck)
+                countLabel.Text = "×" + cardCount;
 
             //Make ENTIRE banner clickable
             foreach (Control control in Controls)
@@ -54,51 +58,61 @@ namespace SVTracker
         {
             bool isSplit = true;
 
-            if (Parent.Parent.Name == "SVTracker")
-                isSplit = false;
-            CardBanner banner = new CardBanner(cardId, cardName, cardCost, cardRarityId, cardCount, isInDeck);
-
-            if (isInDeck)
+            if (Parent.Parent.Name != "ChooseDialog")
             {
-                if (isSplit)
+                if (Parent.Parent.Name == "SVTracker")
+                    isSplit = false;
+                CardBanner banner = new CardBanner(cardId, cardName, cardCost, cardRarityId, cardCount, isInDeck);
+
+                if (isInDeck)
                 {
-                    DeckWindow source = (DeckWindow)Parent.Parent;
-                    SVTrackerSplit target = source.mainWindow;
-                    banner.isInDeck = false;
-                    banner.countLabel.ResetText();
-                    target.AddToHand(banner.cardId, true);
+                    if (isSplit)
+                    {
+                        DeckWindow source = (DeckWindow)Parent.Parent;
+                        SVTrackerSplit target = source.mainWindow;
+                        banner.isInDeck = false;
+                        banner.countLabel.ResetText();
+                        target.AddToHand(banner.cardId, true);
+                    }
+                    else
+                    {
+                        SVTracker target = (SVTracker)Parent.Parent;
+                        banner.isInDeck = false;
+                        banner.countLabel.ResetText();
+                        target.AddToHand(banner.cardId, true);
+                    }
+
+                    if (cardCount > 1)
+                    {
+                        cardCount--;
+                        countLabel.Text = "×" + cardCount;
+                    }
+                    else Dispose();
                 }
                 else
                 {
-                    SVTracker target = (SVTracker)Parent.Parent;
-                    banner.isInDeck = false;
-                    banner.countLabel.ResetText();
-                    target.AddToHand(banner.cardId, true);
+                    if (isSplit)
+                    {
+                        SVTrackerSplit target = (SVTrackerSplit)Parent.Parent;
+                        Dispose();
+                        target.PlayCard(banner.cardId);
+                    }
+                    else
+                    {
+                        SVTracker target = (SVTracker)Parent.Parent;
+                        Dispose();
+                        target.PlayCard(banner.cardId);
+                    }
                 }
-                
-                if (cardCount > 1)
-                {
-                    cardCount--;
-                    countLabel.Text = "×" + cardCount;
-                }
-                else Dispose();
+                banner.Dispose();
             }
             else
             {
-                if (isSplit)
-                {
-                    SVTrackerSplit target = (SVTrackerSplit)Parent.Parent;
-                    Dispose();
-                    target.PlayCard(banner.cardId);
-                }
-                else
-                {
-                    SVTracker target = (SVTracker)Parent.Parent;
-                    Dispose();
-                    target.PlayCard(banner.cardId);
-                }
+                ChooseDialog target = (ChooseDialog)Parent.Parent;
+                target.choice = cardId;
+                target.choiceBannerList.Controls.Clear();
+                target.Close();
             }
-            banner.Dispose();
         }
     }
 }

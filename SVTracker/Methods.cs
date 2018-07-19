@@ -150,6 +150,35 @@ namespace SVTracker
                         break;
                     }
 
+            //Add clan_name
+            switch (deck.CraftId)
+            {
+                case 1:
+                    deck.CraftName = "Forestcraft";
+                    break;
+                case 2:
+                    deck.CraftName = "Swordcraft";
+                    break;
+                case 3:
+                    deck.CraftName = "Runecraft";
+                    break;
+                case 4:
+                    deck.CraftName = "Dragoncraft";
+                    break;
+                case 5:
+                    deck.CraftName = "Shadowcraft";
+                    break;
+                case 6:
+                    deck.CraftName = "Bloodcraft";
+                    break;
+                case 7:
+                    deck.CraftName = "Havencraft";
+                    break;
+                case 8:
+                    deck.CraftName = "Portalcraft";
+                    break;
+            }
+
             return deck;
         }
 
@@ -182,21 +211,95 @@ namespace SVTracker
             string json = File.ReadAllText(JsonPathLocal);
             RootObject database = JsonConvert.DeserializeObject<RootObject>(json);
             List<Card> cards = database.Data.Cards; //we only want a list of Card objects
+            int count = 0;
+            DialogResult dr;
 
             Card sourceCard = cards.Find(x => x.CardId == sourceId);
             if (sourceCard != null)
                 target.infoBox.AppendText("\r\nPlayed " + sourceCard.CardName + ". ");
+
+            ChooseDialog choose = new ChooseDialog();
+            CardBanner choice = new CardBanner();
+            Card targetCard = new Card();
 
             //oh boy here we go
             switch (sourceCard.CardId)
             {
                 //Neutral
                 case 106024010:                         //Mystic Ring
-                                                        //targetInHand.AddToDeck();
+                    foreach (CardBanner possibleTarget in target.handBannerList.Controls)
+                    {
+                        targetCard = cards.Find(x => x.CardId == possibleTarget.cardId);
+                        choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                        choose.choiceBannerList.Controls.Add(choice);
+                    }
+                    if (choose.choiceBannerList.Controls.Count > 0)
+                    {
+                        choose.ShowDialog();
+                        target.AddToDeck(choose.choice);
+                        target.infoBox.AppendText("Added " + cards.Find(x => x.CardId == choose.choice).CardName + " to the deck. ");
+                    }
+                    else
+                    {
+                        target.AddToHand(107834020, false);
+                        target.infoBox.AppendText("No valid targets. Put Mystic Ring back in hand.");
+                    }
+                    break;
+                case 107024010:                         //Treasure Map
+                    targetCard = cards.Find(x => x.CardId == 101113010);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    targetCard = cards.Find(x => x.CardId == 101232010);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    targetCard = cards.Find(x => x.CardId == 104313010);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    targetCard = cards.Find(x => x.CardId == 101432020);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    targetCard = cards.Find(x => x.CardId == 104522010);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    targetCard = cards.Find(x => x.CardId == 101623010);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    targetCard = cards.Find(x => x.CardId == 103723010);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    choose.ShowDialog();
+                    target.AddToHand(choose.choice, false);
+                    target.infoBox.AppendText("Added a " + cards.Find(x => x.CardId == choose.choice).CardName + " to hand.");
                     break;
                 case 103021040:                         //Gourmet Emperor, Khaiza
                     target.AddToHand(900021010, false);
                     target.infoBox.AppendText("Added an Ultimate Carrot to hand.");
+                    break;
+                case 107031020:                         //Goblin Emperor
+                    targetCard = cards.Find(x => x.CardId == 100011010);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    targetCard = cards.Find(x => x.CardId == 105011030);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    targetCard = cards.Find(x => x.CardId == 104021020);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    choose.ShowDialog();
+                    target.AddToHand(choose.choice, false);
+                    target.infoBox.AppendText("Added a " + cards.Find(x => x.CardId == choose.choice).CardName + " to hand.");
+                    break;
+                case 107041020:                         //Badb Catha
+                    dr = MessageBox.Show("Was Badb Catha played for 9pp","Enhance Effect", MessageBoxButtons.YesNo);
+                    switch (dr)
+                    {
+                        case DialogResult.Yes:
+                            target.AddToHand(900044030, false);
+                            target.infoBox.AppendText("Added a Morrigna's Gospel to hand.");
+                            break;
+                        case DialogResult.No:
+                            break;
+                    }
                     break;
                 case 109011020:                         //Lowain of the Brofamily
                     target.AddToHand(900011050, false);
@@ -218,8 +321,30 @@ namespace SVTracker
                     target.infoBox.AppendText("Discarded all cards in hand.");
                     break;
                 case 101041030:                         //Prince of Darkness
-                   target.HolyFuckItsStan();
+                    target.HolyFuckItsStan();
                     break;
+                case 105041020:                         //Queen of the Dread Sea
+                    foreach (CardBanner possibleTarget in target.handBannerList.Controls)
+                    {
+                        targetCard = cards.Find(x => x.CardId == possibleTarget.cardId && x.CraftId == 0);
+                        choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                        choose.choiceBannerList.Controls.Add(choice);
+                    }
+                    choose.ShowDialog();
+                    Card targetOne = cards.Find(x => x.CardId == choose.choice);
+                    foreach (CardBanner possibleTarget in target.handBannerList.Controls)
+                    {
+                        targetCard = cards.Find(x => x.CardId == possibleTarget.cardId && x.CraftId != 0);
+                        choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                        choose.choiceBannerList.Controls.Add(choice);
+                    }
+                    choose.ShowDialog();
+                    target.handBannerList.Controls.Clear();
+                    target.AddToHand(targetOne.CardId, false);
+                    target.AddToHand(choose.choice, false);
+                    target.infoBox.AppendText("Discarded all cards in hand except one Neutral and one non-Neutral.");
+                    break;
+
 
                 //Forest
                 case 101114050:                         //Fairy Circle
@@ -230,6 +355,14 @@ namespace SVTracker
                 case 107111020:                         //Weald Philosopher
                 case 102121040:                         //Baalt, King of the Elves
                     target.AddFairy(2);
+                    if (sourceCard.CardId == 105111010) //Flower Princess specific
+                    {
+                        if (target.NeuralCheck() > 2)
+                        {
+                            target.AddToHand(900144010, false);
+                            target.infoBox.AppendText("Added a Thorn Burst to hand.");
+                        }
+                    }
                     break;
                 case 100114010:                         //Sylvan Justice
                 case 101121010:                         //Waltzing Fairy
@@ -240,10 +373,62 @@ namespace SVTracker
                 case 101111080:                         //Fairy Caster
                     target.AddFairy(3);
                     break;
+                case 109113010:                         //Fairy Refuge
+                    targetCard = cards.Find(x => x.CardId == 109113010);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    targetCard = cards.Find(x => x.CardId == 900113010);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    targetCard = cards.Find(x => x.CardId == 900113020);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    choose.ShowDialog();
+                    if (choose.choice != 109113010)
+                        target.PlayCard(choose.choice);
+                    break;
                 case 108131030:                         //Storied Falconer
                 case 103134010:                         //Selwyn's Command
                     target.AddToHand(900131010, false);
                     target.infoBox.AppendText("Added a Skystride Raptor to hand.");
+                    if (sourceCard.CardId == 103134010)
+                    {
+                        dr = MessageBox.Show("Was Selwyn's Command played for 8pp", "Enhance Effect", MessageBoxButtons.YesNo);
+                        switch (dr)
+                        {
+                            case DialogResult.Yes:
+                                target.AddToHand(102131020, false);
+                                target.infoBox.AppendText("Added a Grand Archer Selwyn to hand.");
+                                break;
+                            case DialogResult.No:
+                                break;
+                        }
+                    }
+                    break;
+                case 108131010:                         //Paula, Icy Warmth
+                    targetCard = cards.Find(x => x.CardId == 108131010);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    targetCard = cards.Find(x => x.CardId == 900131020);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    targetCard = cards.Find(x => x.CardId == 900131030);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    choose.ShowDialog();
+                    if (choose.choice != 108131010)
+                        target.PlayCard(choose.choice);
+                    break;
+                case 109131010:                         //Shamu and Shama, Noblekin
+                    targetCard = cards.Find(x => x.CardId == 900134010);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    targetCard = cards.Find(x => x.CardId == 900134020);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    choose.ShowDialog();
+                    target.AddToHand(choose.choice, false);
+                    target.infoBox.AppendText("Added a " + cards.Find(x => x.CardId == choose.choice).CardName + " to hand.");
                     break;
                 case 106121020:                         //Ariana, Natural Tutor
                     target.AddToHand(104114010, false);
@@ -252,13 +437,52 @@ namespace SVTracker
                 case 107141010:                         //Aria, Guiding Fairy
                     target.AddToHand(900111020, false);
                     target.infoBox.AppendText("Added a Fairy Wisp to hand.");
+                    dr = MessageBox.Show("Was Aria played for 9pp", "Enhance Effect", MessageBoxButtons.YesNo);
+                    switch (dr)
+                    {
+                        case DialogResult.Yes:
+                            target.AddFairy(9 - target.cardsInHand);
+                            break;
+                        case DialogResult.No:
+                            break;
+                    }
+                    break;
+                case 108121010:                         //Fashionista Nelcha
+                    targetCard = cards.Find(x => x.CardId == 900124010);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    targetCard = cards.Find(x => x.CardId == 900124020);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    choose.ShowDialog();
+                    target.AddToHand(choose.choice, false);
+                    target.infoBox.AppendText("Added a(n) " + cards.Find(x => x.CardId == choose.choice).CardName + " to hand.");
                     break;
                 case 106131010:                         //Venus
                     target.AddToHand(101122010, false);
                     target.infoBox.AppendText("Added a Harvest Festival to hand.");
                     break;
+                case 109141010:                         //Korwa, Ravishing Designer
+                    dr = MessageBox.Show("Was Korwa played for 8pp", "Enhance Effect", MessageBoxButtons.YesNo);
+                    switch (dr)
+                    {
+                        case DialogResult.Yes:
+                            for (int i = 0; i < 3; i++)
+                            {
+                                target.AddToHand(900144040, false);
+                            }
+                            target.infoBox.AppendText("Added three Fils to hand.");
+                            break;
+                        case DialogResult.No:
+                            break;
+                    }
+                    break;
                 case 101141010:                         //Fairy Princess
                     target.AddFairy(9 - target.cardsInHand);
+                    break;
+                case 104141010:                         //Elf Queen
+                    target.infoBox.AppendText("Restored " + target.shadowCount + " defense to your leader. Set shadows to 0.");
+                    target.shadowCount = 0;
                     break;
                 case 101141030:                         //Rose Queen
                     foreach (CardBanner cardBanner in target.handBannerList.Controls)
@@ -273,27 +497,240 @@ namespace SVTracker
                     break;
 
                 //Sword
+                case 108234010:                         //Chromatic Duel
+                    dr = MessageBox.Show("Was Chromatic Duel played for 8pp", "Enhance Effect", MessageBoxButtons.YesNo);
+                    switch (dr)
+                    {
+                        case DialogResult.Yes:
+                            target.AddToHand(900231010, false);
+                            target.AddToHand(900231020, false);
+                            target.infoBox.AppendText("Added a Queen Hemera the White and a Queen Magnus the Black to hand.");
+                            break;
+                        case DialogResult.No:
+                            targetCard = cards.Find(x => x.CardId == 900231010);
+                            choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                            choose.choiceBannerList.Controls.Add(choice);
+                            targetCard = cards.Find(x => x.CardId == 900231020);
+                            choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                            choose.choiceBannerList.Controls.Add(choice);
+                            choose.ShowDialog();
+                            target.AddToHand(choose.choice, false);
+                            target.infoBox.AppendText("Added a " + cards.Find(x => x.CardId == choose.choice).CardName + " to hand.");
+                            break;
+                    }
+                    break;
                 case 109214010:                         //Grand Auction
                     target.AddToHand(109223010, false);
                     target.infoBox.AppendText("Added an Ageworn Weaponry to hand.");
+                    break;
+                case 108231010:                         //Innocent Princess Prim
+                    dr = MessageBox.Show("Was Prim played for 8pp", "Enhance Effect", MessageBoxButtons.YesNo);
+                    switch (dr)
+                    {
+                        case DialogResult.Yes:
+                            target.AddToHand(108221010, false);
+                            target.infoBox.AppendText("Added a Nonja, Silent Maid to hand.");
+                            break;
+                        case DialogResult.No:
+                            break;
+                    }
+                    break;
+                case 108241010:                         //Sky Commander Celia
+                    targetCard = cards.Find(x => x.CardId == 108241010);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    targetCard = cards.Find(x => x.CardId == 900241020);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    targetCard = cards.Find(x => x.CardId == 900241030);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    choose.ShowDialog();
+                    if (choose.choice != 108241010)
+                        target.PlayCard(choose.choice);
+                    break;
+                case 109223010:                         //Ageworn Weaponry
+                    targetCard = cards.Find(x => x.CardId == 109223010);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    targetCard = cards.Find(x => x.CardId == 900223010);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    targetCard = cards.Find(x => x.CardId == 900223020);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    choose.ShowDialog();
+                    if (choose.choice != 108241010)
+                        target.PlayCard(choose.choice);
+                    break;
+                case 108221030:                         //Valse, Magical Marksman
+                    targetCard = cards.Find(x => x.CardId == 900224020);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    targetCard = cards.Find(x => x.CardId == 900224010);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    choose.ShowDialog();
+                    target.AddToHand(choose.choice, false);
+                    target.infoBox.AppendText("Added a " + cards.Find(x => x.CardId == choose.choice).CardName + " to hand.");
                     break;
                 case 103231020:                         //Amelia, Silver Paladin
                     target.AddToHand(103221030, false);
                     target.infoBox.AppendText("Added a Gelt, Vice Captain to hand.");
                     break;
+                case 109231010:                         //Dei, Secret Agent
+                    targetCard = cards.Find(x => x.CardId == 900231030);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    targetCard = cards.Find(x => x.CardId == 900234010);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    choose.ShowDialog();
+                    target.AddToHand(choose.choice, false);
+                    target.infoBox.AppendText("Added an " + cards.Find(x => x.CardId == choose.choice).CardName + " to hand.");
+                    break;
+                case 109234010:                         //Dragon Knights
+                    count = 1;
+                    dr = MessageBox.Show("Was Dragon Knights played for 8pp", "Enhance Effect", MessageBoxButtons.YesNo);
+                    switch (dr)
+                    {
+                        case DialogResult.Yes:
+                            count++;
+                            break;
+                        case DialogResult.No:
+                            break;
+                    }
+                    for (int i=0; i<count; i++)
+                    {
+                        targetCard = cards.Find(x => x.CardId == 900231040);
+                        choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                        choose.choiceBannerList.Controls.Add(choice);
+                        targetCard = cards.Find(x => x.CardId == 900231050);
+                        choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                        choose.choiceBannerList.Controls.Add(choice);
+                        targetCard = cards.Find(x => x.CardId == 900231060);
+                        choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                        choose.choiceBannerList.Controls.Add(choice);
+                        targetCard = cards.Find(x => x.CardId == 900231070);
+                        choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                        choose.choiceBannerList.Controls.Add(choice);
+                        choose.ShowDialog();
+                        target.PlayCard(choose.choice);
+                    }
+                    break;
 
                 //Rune
+                case 107324010:                         //Mysterian Knowledge
+                    targetCard = cards.Find(x => x.CardId == 900314040);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    targetCard = cards.Find(x => x.CardId == 900314050);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    choose.ShowDialog();
+                    target.AddToHand(choose.choice, false);
+                    target.infoBox.AppendText("Added a " + cards.Find(x => x.CardId == choose.choice).CardName + " to hand.");
+                    break;
+                case 109332010:                         //Mystic Rune
+                    targetCard = cards.Find(x => x.CardId == 109332010);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    targetCard = cards.Find(x => x.CardId == 900332010);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    targetCard = cards.Find(x => x.CardId == 900332020);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    choose.ShowDialog();
+                    if (choose.choice != 109332010)
+                        target.PlayCard(choose.choice);
+                    break;
+                case 101311060:                         //Apprentice Alchemist
+                case 101311070:                         //Master Alchemist
+                    dr = MessageBox.Show("Did Earth Rite activate?", "Earth Rite", MessageBoxButtons.YesNo);
+                    switch (dr)
+                    {
+                        case DialogResult.Yes:
+                            target.AddToHand(900314010, false);
+                            break;
+                        case DialogResult.No:
+                            break;
+                    }
+                    break;
                 case 103321030:                         //Dwarf Alchemist
                     target.AddToHand(900312010, false);
                     target.infoBox.AppendText("Added an Earth Essence to hand.");
                     break;
+                case 108321020:                         //Mysterian Wyrmist
+                    targetCard = cards.Find(x => x.CardId == 108321020);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    targetCard = cards.Find(x => x.CardId == 900321010);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    targetCard = cards.Find(x => x.CardId == 900321020);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    choose.ShowDialog();
+                    if (choose.choice != 108321020)
+                        target.PlayCard(choose.choice);
+                    break;
                 case 105334010:                         //Golem Assault
-                    target.AddToHand(900314010, false);
-                    target.infoBox.AppendText("Added a Conjure Guardian to hand.");
+                    count = 1;
+                    if (sourceId == 105334010)
+                    {
+                        dr = MessageBox.Show("Was Golem Assault played for 6pp", "Enhance Effect", MessageBoxButtons.YesNo);
+                        switch (dr)
+                        {
+                            case DialogResult.Yes:
+                                count = 3;
+                                break;
+                            case DialogResult.No:
+                                break;
+                        }
+                    }
+                    for (int i=0; i<count; i++)
+                        target.AddToHand(900314010, false);
+                    target.infoBox.AppendText("Added " + count + " Conjure Guardian to hand.");
                     break;
                 case 101334030:                         //First Curse
                     target.AddToHand(900334010, false);
                     target.infoBox.AppendText("Added a Second Curse to hand.");
+                    break;
+                case 103334010:                         //Secrets of Erasmus
+                    DialogResult dr8 = MessageBox.Show("Was Secrets of Erasmus played for 9pp", "Enhance Effect", MessageBoxButtons.YesNo);
+                    switch (dr8)
+                    {
+                        case DialogResult.Yes:
+                            target.PlayCard(101341030);
+                            break;
+                        case DialogResult.No:
+                            break;
+                    }
+                    break;
+                case 108341010:                         //Runie, Destiny's Bard
+                    targetCard = cards.Find(x => x.CardId == 900344010);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    targetCard = cards.Find(x => x.CardId == 900344020);
+                    choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                    choose.choiceBannerList.Controls.Add(choice);
+                    choose.ShowDialog();
+                    target.AddToHand(choose.choice, false);
+                    target.infoBox.AppendText("Added a " + cards.Find(x => x.CardId == choose.choice).CardName + " to hand.");
+                    break;
+                case 101331010:                         //Ancient Alchemist
+                    dr = MessageBox.Show("Did Earth Rite activate?", "Earth Rite", MessageBoxButtons.YesNo);
+                    switch (dr)
+                    {
+                        case DialogResult.Yes:
+                            for (int i=0;i<3;i++)
+                                target.AddToHand(900314010, false);
+                            break;
+                        case DialogResult.No:
+                            break;
+                    }
+                    target.infoBox.AppendText("Added 3 Conjure Guardian to hand.");
                     break;
                 case 107314020:                         //Chain Lightning
                     if (target.cardsInHand <= 4)
@@ -305,6 +742,18 @@ namespace SVTracker
                 case 103321020:                         //Disaster Witch
                     target.AddToHand(900314020, false);
                     target.infoBox.AppendText("Added a Crimson Sorcery to hand.");
+                    break;
+                case 104341020:                         //Hulking Giant
+                    foreach (CardBanner card in target.handBannerList.Controls)
+                    {
+                        targetCard = cards.Find(x => x.CardId == card.cardId);
+                        if (targetCard.Trait == "Earth Sigil")
+                        {
+                            card.Dispose();
+                            target.shadowCount++;
+                        }
+                    }
+                    target.infoBox.AppendText("Discarded all Earth Sigils.");
                     break;
                 case 900321010:                         //Mysterian Whitewyrm
                     target.AddToHand(900314050, false);
@@ -318,9 +767,34 @@ namespace SVTracker
                     target.AddToHand(900334020, false);
                     target.infoBox.AppendText("Added a Final Curse to hand.");
                     break;
+                case 109321010:                         //Abyss Summoner
+                    if (target.cardsInDeck <= 20)
+                    {
+                        targetCard = cards.Find(x => x.CardId == 900321030);
+                        choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                        choose.choiceBannerList.Controls.Add(choice);
+                        targetCard = cards.Find(x => x.CardId == 900321040);
+                        choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                        choose.choiceBannerList.Controls.Add(choice);
+                        choose.ShowDialog();
+                        target.PlayCard(choose.choice);
+                    }
+                    break;
                 case 103341010:                         //Daria, Dimensional Witch
                     target.handBannerList.Controls.Clear();
                     target.infoBox.AppendText("Banished all cards in hand.");
+                    break;
+                case 108341020:                         //Unbodied Witch
+                    foreach (CardBanner card in target.handBannerList.Controls)
+                    {
+                        targetCard = cards.Find(x => x.CardId == card.cardId);
+                        choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                        choose.choiceBannerList.Controls.Add(choice);
+                    }
+                    choose.ShowDialog();
+                    while (target.cardsInHand < 9)
+                        target.AddToHand(choose.choice, false);
+                    target.infoBox.AppendText("Filled hand with copies of " + cards.Find(x => x.CardId == choose.choice).CardName + ".");
                     break;
 
                 //Dragon
@@ -428,6 +902,29 @@ namespace SVTracker
                     break;
 
                 //Portal
+                case 107834020:                         //Biofabrication
+                    foreach (CardBanner possibleTarget in target.handBannerList.Controls)
+                    {
+                        targetCard = cards.Find(x => x.CardId == possibleTarget.cardId);
+                        if (targetCard.Trait == "Artifact")
+                        {
+                            choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                            choose.choiceBannerList.Controls.Add(choice);
+                        }
+                    }
+                    if (choose.choiceBannerList.Controls.Count > 0)
+                    {
+                        choose.ShowDialog();
+                        for (int i = 0; i < 3; i++)
+                            target.AddToDeck(choose.choice);
+                        target.infoBox.AppendText("Added three " + cards.Find(x => x.CardId == choose.choice).CardName + "s to the deck. ");
+                    }
+                    else
+                    {
+                        target.AddToHand(107834020, false);
+                        target.infoBox.AppendText("No valid targets. Put Biofabrication back in hand.");
+                    }
+                    break;
                 case 107824020:                         //Metaproduction
                     target.AddToDeck(900811030);
                     target.infoBox.AppendText("Added an Analyzing Artifact to the deck.");
@@ -435,10 +932,41 @@ namespace SVTracker
                 case 107823010:                         //Ancient Amplifier
                 case 107811100:                         //Mech Wing Swordsman
                 case 107811030:                         //Gravikinetic Warrior
-                                                        //two at random 900811010 900811020 900811030 900811040
+                    for (int i=0; i<2; i++)
+                    {
+                        targetCard = cards.Find(x => x.CardId == 900811010);
+                        choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                        choose.choiceBannerList.Controls.Add(choice);
+                        targetCard = cards.Find(x => x.CardId == 900811020);
+                        choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                        choose.choiceBannerList.Controls.Add(choice);
+                        targetCard = cards.Find(x => x.CardId == 900811030);
+                        choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                        choose.choiceBannerList.Controls.Add(choice);
+                        targetCard = cards.Find(x => x.CardId == 900811040);
+                        choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                        choose.choiceBannerList.Controls.Add(choice);
+                        choose.ShowDialog();
+                        target.AddToDeck(choose.choice);
+                        target.infoBox.AppendText("Added a "+cards.Find(x => x.CardId == choose.choice).CardName+" to the deck. ");
+                    }
                     break;
                 case 109813010:                         //Ancient Apparatus
-                                                        //two at random 900811020 900811040 900811060
+                    for (int i = 0; i < 2; i++)
+                    {
+                        targetCard = cards.Find(x => x.CardId == 900811020);
+                        choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                        choose.choiceBannerList.Controls.Add(choice);
+                        targetCard = cards.Find(x => x.CardId == 900811040);
+                        choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                        choose.choiceBannerList.Controls.Add(choice);
+                        targetCard = cards.Find(x => x.CardId == 900811060);
+                        choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                        choose.choiceBannerList.Controls.Add(choice);
+                        choose.ShowDialog();
+                        target.AddToDeck(choose.choice);
+                        target.infoBox.AppendText("Added a " + cards.Find(x => x.CardId == choose.choice).CardName + " to the deck. ");
+                    }
                     break;
                 case 100811070:                         //Magisteel Lion
                     target.AddToDeck(900811030);
@@ -454,6 +982,19 @@ namespace SVTracker
                 case 108811010:                         //Knower of History
                     target.AddToDeck(900811060);
                     target.infoBox.AppendText("Added a Prime Artifact to the deck.");
+                    break;
+                case 108821010:                         //Miriam, Synthetic Being
+                    if (target.ResonanceCheck())
+                    {
+                        targetCard = cards.Find(x => x.CardId == 900821010);
+                        choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                        choose.choiceBannerList.Controls.Add(choice);
+                        targetCard = cards.Find(x => x.CardId == 900821020);
+                        choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                        choose.choiceBannerList.Controls.Add(choice);
+                        choose.ShowDialog();
+                        target.PlayCard(choose.choice);
+                    }
                     break;
                 case 900821010:                         //L'Ange Miriam
                     target.AddToDeck(900811040);
@@ -499,7 +1040,15 @@ namespace SVTracker
                 default:
                     break;
             }
+
+            choose.Dispose();
         }
+
+
+
+        //------------------------------------------------
+
+
 
         public static void PlayCard(int sourceId, SVTracker target)
         {

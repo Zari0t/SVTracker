@@ -56,7 +56,7 @@ namespace SVTracker
 
                     //Actually fetch the deck's contents, display info regarding it
                     deck = Methods.GetDeck(hash);
-                    deckWindow.Text = deckCodeInput.Text;
+                    deckWindow.Text = deck.CraftName + " - " + deckCodeInput.Text;
 
                     Methods.DeckFilter(deck, deckWindow.deckBannerList);
 
@@ -108,9 +108,7 @@ namespace SVTracker
         {
             cardsInHand = 0;
             shadowCount = 0;
-            if (deck.DeckFormat == 1)
-                cardsInDeck = 40;
-            else cardsInDeck = 30;
+            cardsInDeck = deck.Cards.Count;
             numberInHandLabel.Text = "Cards in hand: " + cardsInHand;
             numberInDeckLabel.Text = "Cards in deck: " + cardsInDeck;
             shadowCountLabel.Text = "Shadows: " + shadowCount;
@@ -126,12 +124,33 @@ namespace SVTracker
         }
 
         //Checks if Resonance is active or not
-        public void ResonanceCheck()
+        public bool ResonanceCheck()
         {
-            if (deck.Craft == 8)
+            if (deck.CraftId == 8)
+            {
                 if (cardsInDeck % 2 == 0)
+                {
                     resonanceLabel.Show();
-            else resonanceLabel.Hide();
+                    return true;
+                }
+                else
+                {
+                    resonanceLabel.Hide();
+                    return false;
+                }
+            }
+            else return false;
+        }
+
+        public int NeuralCheck()
+        {
+            int neutralCount = 0;
+            foreach (CardBanner card in handBannerList.Controls)
+            {
+                if (cards.Find(x => x.CardId == card.cardId).CraftId == 0)
+                    neutralCount++;
+            }
+            return neutralCount;
         }
 
         //Adds a card to the player's hand
@@ -214,7 +233,8 @@ namespace SVTracker
         public void PlayCard(int sourceId)
         {
             //Create instance of the card being played
-            cardsInHand--;
+            if (cardsInHand > 0)
+                cardsInHand--;
             shadowCount++;
             Methods.PlayCard(sourceId, this);
 
