@@ -798,6 +798,91 @@ namespace SVTracker
                     break;
 
                 //Dragon
+                case 107414010:                         //Stormborne Wings
+                    foreach (CardBanner card in target.handBannerList.Controls)
+                    {
+                        targetCard = cards.Find(x => x.CardId == card.cardId);
+                        if (targetCard.CraftId == 4)
+                        {
+                            choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                            choose.choiceBannerList.Controls.Add(choice);
+                        }
+                    }
+                    choose.ShowDialog();
+                    foreach (CardBanner card in target.handBannerList.Controls)
+                    {
+                        if (card.cardId == choose.choice)
+                        {
+                            card.Dispose();
+                            target.AddToHand(900411020, false);
+                            break;
+                        }
+                    }
+                    target.infoBox.AppendText("Transformed " + cards.Find(x => x.CardId == choose.choice).CardName + " in hand into a Windblast Dragon.");
+                    break;
+                case 107424010:                         //Dragon Horde
+                    count = 1;
+                    dr = MessageBox.Show("Was Dragon Horde played for 3pp", "Enhance Effect", MessageBoxButtons.YesNo);
+                    switch (dr)
+                    {
+                        case DialogResult.Yes:
+                            count++;
+                            break;
+                        case DialogResult.No:
+                            break;
+                    }
+                    for (int i=0; i<count; i++)
+                        target.AddToHand(101411020, false);
+                    target.infoBox.AppendText("Added " + count + " Windblast Dragon to hand.");
+                    break;
+                case 106411010:                         //Dragonreader Matilda
+                    target.AddToHand(101411110, false);
+                    target.infoBox.AppendText("Added a Fire Lizard to hand.");
+                    break;
+                case 107421010:                         //Marion, Fierce Dragonewt
+                    foreach (CardBanner card in target.handBannerList.Controls)
+                    {
+                        targetCard = cards.Find(x => x.CardId == card.cardId);
+                        if (targetCard.CraftId == 4)
+                        {
+                            choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                            choose.choiceBannerList.Controls.Add(choice);
+                        }
+                    }
+                    choose.ShowDialog();
+                    foreach (CardBanner card in target.handBannerList.Controls)
+                    {
+                        if (card.cardId == choose.choice)
+                        {
+                            card.Dispose();
+                            target.AddToHand(100414020, false);
+                            break;
+                        }
+                    }
+                    target.infoBox.AppendText("Transformed " + cards.Find(x => x.CardId == choose.choice).CardName + " in hand into a Blazing Breath.");
+                    break;
+                case 108421010:                         //Heroic Dragonslayer
+                    foreach (CardBanner card in target.handBannerList.Controls)
+                    {
+                        targetCard = cards.Find(x => x.CardId == card.cardId);
+                        if (targetCard.CraftId == 4)
+                        {
+                            choice = new CardBanner(targetCard.CardId, targetCard.CardName, targetCard.Cost, targetCard.RarityId, 1, false);
+                            choose.choiceBannerList.Controls.Add(choice);
+                        }
+                    }
+                    choose.ShowDialog();
+                    foreach (CardBanner card in target.handBannerList.Controls)
+                    {
+                        if (card.cardId == choose.choice)
+                        {
+                            card.Dispose();
+                            target.AddToHand(900414010, false);
+                            break;
+                        }
+                    }
+                    target.infoBox.AppendText("Transformed " + cards.Find(x => x.CardId == choose.choice).CardName + " in hand into a Dragon's Handspur.");
+                    break;
                 case 108441030:                         //Whitefrost Dragon, Filene
                     target.AddToHand(900444010, false);
                     target.infoBox.AppendText("Added a Whitefrost Whisper to hand.");
